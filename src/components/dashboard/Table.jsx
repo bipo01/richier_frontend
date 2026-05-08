@@ -19,7 +19,14 @@ function Table() {
 						<p className="p-no-data">Sem dados</p>
 					) : (
 						entries.slice(0, 10).map((transaction) => {
-							const date = new Date(transaction.date).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" });
+							console.log(transaction);
+							// CORREÇÃO AQUI: Adicionado timeZone: "UTC"
+							const date = new Date(transaction.date).toLocaleDateString("pt-BR", {
+								timeZone: "UTC",
+								day: "2-digit",
+								month: "2-digit",
+								year: "numeric",
+							});
 
 							return (
 								<tr key={transaction.id}>
