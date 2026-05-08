@@ -34,16 +34,22 @@ function PaginationFooter() {
 
 		content = (
 			<>
-				<span className="pagination-info">
-					Mostrando <strong>{selectedPage * 10 - 9}</strong> a <strong>{filteredTransactions.length > selectedPage * 10 ? 10 : filteredTransactions.length}</strong> de <strong>{filteredTransactions.length}</strong> resultados
-				</span>
-				<div className="pagination-controls">
-					{Array.from({ length: pages }).map((_, i) => (
-						<button onClick={() => dispatch({ type: "selectPage", payload: i + 1 })} className={`${selectedPage === i + 1 ? "active" : ""} btn-page`} key={i + 1}>
-							{i + 1}
-						</button>
-					))}
-				</div>
+				{filteredTransactions.length ? (
+					<>
+						<span className="pagination-info">
+							Mostrando <strong>{selectedPage * 10 - 9}</strong> a <strong>{filteredTransactions.length > selectedPage * 10 ? 10 : filteredTransactions.length}</strong> de <strong>{filteredTransactions.length}</strong> resultados
+						</span>
+						<div className="pagination-controls">
+							{Array.from({ length: pages }).map((_, i) => (
+								<button onClick={() => dispatch({ type: "selectPage", payload: i + 1 })} className={`${selectedPage === i + 1 ? "active" : ""} btn-page`} key={i + 1}>
+									{i + 1}
+								</button>
+							))}
+						</div>
+					</>
+				) : (
+					<p style={{ margin: "0 auto" }}>Não há nenhuma transação ainda.</p>
+				)}
 			</>
 		);
 	}
