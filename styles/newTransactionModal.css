@@ -1,0 +1,316 @@
+.new-transaction-modal-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000; /* Garante que fique acima de tudo */
+	padding: var(--spacing-md, 1rem); /* Fallback para garantir respiro nas bordas no mobile */
+
+	/* O fundo escuro com leve blur */
+	.modal-backdrop {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(15, 23, 42, 0.6); /* Tom azul escuro transparente */
+		backdrop-filter: blur(4px);
+	}
+
+	/* A caixa do Modal */
+	.modal-content {
+		position: relative;
+		background-color: var(--card-bg, #ffffff);
+		width: 100%;
+		max-width: 450px;
+		max-height: 90vh; /* Impede que o modal fique maior que a tela no mobile */
+		overflow-y: auto; /* Adiciona scroll interno caso a tela seja muito pequena */
+		border-radius: var(--border-radius, 12px);
+		box-shadow:
+			0 20px 25px -5px rgba(0, 0, 0, 0.1),
+			0 10px 10px -5px rgba(0, 0, 0, 0.04);
+		display: flex;
+		flex-direction: column;
+
+		/* Animação suave de entrada de baixo para cima */
+		animation: modalSlideUp 0.3s ease-out forwards;
+
+		/* Ajuste fino do scrollbar para ficar elegante */
+		&::-webkit-scrollbar {
+			width: 6px;
+		}
+		&::-webkit-scrollbar-track {
+			background: transparent;
+		}
+		&::-webkit-scrollbar-thumb {
+			background-color: rgba(0, 0, 0, 0.1);
+			border-radius: 10px;
+		}
+	}
+
+	@keyframes modalSlideUp {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* Cabeçalho do Modal */
+	.modal-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: var(--spacing-lg, 1.2rem) var(--spacing-xl, 1.5rem);
+		border-bottom: 1px solid var(--border-color, #e2e8f0);
+
+		/* Fica fixo no topo se rolar o conteúdo no mobile */
+		position: sticky;
+		top: 0;
+		background-color: var(--card-bg, #ffffff);
+		z-index: 10;
+		border-top-left-radius: var(--border-radius, 12px);
+		border-top-right-radius: var(--border-radius, 12px);
+
+		h2 {
+			font-size: 1.25rem;
+			font-weight: 600;
+			color: var(--text-main, #1e293b);
+			margin: 0;
+		}
+
+		.btn-close {
+			background: none;
+			border: none;
+			font-size: 1.5rem;
+			color: var(--text-muted, #64748b);
+			cursor: pointer;
+			transition: color 0.2s ease;
+			line-height: 1;
+			padding: 0.4rem; /* Área de toque melhorada para mobile */
+			border-radius: 50%;
+
+			&:hover {
+				color: var(--error-text, #ef4444);
+				background-color: rgba(239, 68, 68, 0.1); /* Feedback visual no clique */
+			}
+		}
+
+		@media (max-width: 480px) {
+			padding: 1rem; /* Reduz padding no mobile */
+		}
+	}
+
+	/* Corpo do Formulário */
+	.modal-form {
+		display: flex;
+		flex-direction: column;
+		padding: var(--spacing-xl, 1.5rem);
+		gap: var(--spacing-lg, 1.2rem);
+
+		@media (max-width: 480px) {
+			padding: 1rem; /* Otimiza espaço no mobile */
+			gap: 1rem;
+		}
+
+		.form-group {
+			display: flex;
+			flex-direction: column;
+			gap: 0.4rem;
+
+			label {
+				font-size: 0.875rem;
+				font-weight: 500;
+				color: var(--text-main, #1e293b);
+			}
+
+			input[type="number"],
+			input[type="text"],
+			input[type="date"],
+			select,
+			textarea {
+				width: 100%;
+				padding: 0.75rem 0.8rem; /* Padding ligeiramente maior para o dedo no mobile */
+				background-color: var(--input-bg, #f8fafc);
+				border: 1px solid var(--border-color, #e2e8f0);
+				border-radius: var(--border-radius, 8px);
+				color: var(--text-main, #1e293b);
+				font-family: inherit;
+				font-size: 1rem; /* Previne o zoom automático do iOS ao clicar no input */
+				transition: border-color 0.2s ease;
+
+				&:focus {
+					outline: none;
+					border-color: var(--primary-color, #0f766e);
+					box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+				}
+			}
+
+			/* --------------------------------------
+               Custom Radio (Segmented Control)
+               -------------------------------------- */
+			.segmented-control {
+				display: flex;
+				background-color: var(--input-bg, #f8fafc);
+				border-radius: var(--border-radius, 8px);
+				border: 1px solid var(--border-color, #e2e8f0);
+				overflow: hidden;
+
+				.segment {
+					flex: 1;
+					text-align: center;
+					padding: 0.75rem 0.6rem; /* Melhor área de clique */
+					font-size: 0.9rem;
+					font-weight: 500;
+					color: var(--text-muted, #64748b);
+					cursor: pointer;
+					transition: all 0.2s ease;
+					position: relative;
+					margin: 0;
+
+					/* Esconde a bolinha do rádio real */
+					input[type="radio"] {
+						position: absolute;
+						opacity: 0;
+						width: 0;
+						height: 0;
+					}
+
+					/* Estilo para Despesa Selecionada */
+					&.active-out {
+						background-color: var(--error-bg, #fef2f2);
+						color: var(--error-text, #ef4444);
+						font-weight: 600;
+					}
+
+					/* Estilo para Receita Selecionada */
+					&.active-in {
+						background-color: rgba(15, 118, 110, 0.1); /* Fundo verde clarinho */
+						color: var(--primary-color, #0f766e);
+						font-weight: 600;
+					}
+				}
+
+				/* Linha divisória entre os botões */
+				.segment:first-child {
+					border-right: 1px solid var(--border-color, #e2e8f0);
+				}
+			}
+
+			/* --------------------------------------
+               Categoria Header (Label + Checkbox)
+               -------------------------------------- */
+			.category-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+
+				.checkbox-toggle {
+					display: flex;
+					align-items: center;
+					gap: 0.4rem;
+					font-size: 0.8rem;
+					color: var(--primary-color, #0f766e);
+					cursor: pointer;
+					font-weight: 500;
+					margin: 0;
+
+					input[type="checkbox"] {
+						cursor: pointer;
+						accent-color: var(--primary-color, #0f766e);
+						width: 1.1rem; /* Fica um pouquinho maior no celular */
+						height: 1.1rem;
+					}
+				}
+			}
+
+			/* --------------------------------------
+               Textarea Wrapper (Contador interativo)
+               -------------------------------------- */
+			.textarea-wrapper {
+				position: relative;
+
+				textarea {
+					resize: none;
+					padding-bottom: 1.5rem;
+				}
+
+				.char-count {
+					position: absolute;
+					bottom: 0.5rem;
+					right: 0.8rem;
+					font-size: 0.75rem;
+					color: var(--text-muted, #64748b);
+					transition: color 0.2s ease;
+					pointer-events: none;
+
+					&.limit-reached {
+						color: var(--error-text, #ef4444);
+						font-weight: 600;
+					}
+				}
+			}
+		}
+	}
+
+	/* Rodapé do Modal com Botões */
+	.modal-actions {
+		display: flex;
+		justify-content: flex-end;
+		gap: var(--spacing-md, 1rem);
+		margin-top: var(--spacing-sm, 0.5rem);
+
+		button {
+			padding: 0.75rem 1.2rem;
+			border-radius: var(--border-radius, 8px);
+			font-size: 0.95rem;
+			font-weight: 600;
+			font-family: inherit;
+			cursor: pointer;
+			transition: all 0.2s ease;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.btn-cancel {
+			background-color: transparent;
+			border: 1px solid var(--border-color, #e2e8f0);
+			color: var(--text-main, #1e293b);
+
+			&:hover {
+				background-color: var(--input-bg, #f8fafc);
+			}
+		}
+
+		.btn-submit {
+			background-color: var(--primary-color, #0f766e);
+			color: white;
+			border: none;
+			box-shadow: 0 2px 4px rgba(15, 118, 110, 0.2);
+
+			&:hover {
+				background-color: var(--primary-hover, #115e59);
+			}
+		}
+
+		/* No mobile, botões em coluna (100% de largura) para facilidade de toque */
+		@media (max-width: 480px) {
+			flex-direction: column-reverse; /* Cancelar em baixo, Confirmar em cima */
+			width: 100%;
+			margin-top: 0;
+
+			button {
+				width: 100%;
+				padding: 0.85rem; /* Botões mais altos para os dedos */
+			}
+		}
+	}
+}

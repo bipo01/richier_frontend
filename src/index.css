@@ -1,0 +1,110 @@
+@import url("../styles/login.css");
+@import url("../styles/header.css");
+@import url("../styles/footer.css");
+@import url("../styles/dashboard.css");
+@import url("../styles/loader.css");
+@import url("../styles/newTransactionModal.css");
+@import url("../styles/transactions.css");
+@import url("../styles/editTransactionModal.css");
+@import url("../styles/modalDelete.css");
+@import url("../styles/infoCards.css");
+@import url("../styles/account.css");
+@import url("../styles/deleteAccountModal.css");
+@import url("../styles/register.css");
+
+:root {
+	/* Cores - Paleta minimalista e profissional com destaque em verde escuro */
+	--bg-color: #f4f7f6; /* Fundo leve e neutro */
+	--card-bg: #ffffff; /* Fundo do formulário */
+	--text-main: #1e293b; /* Texto principal escuro e legível */
+	--text-muted: #64748b; /* Texto secundário (placeholders) */
+	--primary-color: #115e59; /* Verde escuro maduro para botões e links */
+	--primary-hover: #0f766e; /* Tom ligeiramente mais claro para interações */
+	--border-color: #e2e8f0; /* Bordas sutis */
+	--input-bg: #f8fafc; /* Fundo dos inputs para contraste leve */
+
+	/* Cores de Erro */
+	--error-bg: #fef2f2;
+	--error-text: #b91c1c;
+	--error-border: #fca5a5;
+
+	/* Espaçamentos */
+	--spacing-sm: 0.5rem;
+	--spacing-md: 1rem;
+	--spacing-lg: 1.5rem;
+	--spacing-xl: 2rem;
+
+	/* Formas e Sombras */
+	--border-radius: 8px;
+	--shadow-subtle: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+
+	/* Tipografia */
+	--font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: var(--font-family);
+	background-color: var(--bg-color);
+	color: var(--text-main);
+}
+
+/* Container que envolve tudo (Header + Main + Footer) */
+.app-layout-wrapper {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh; /* Garante que a tela toda seja ocupada, no mínimo */
+}
+
+/* O container do meio, onde fica o conteúdo das páginas */
+.app-main-content {
+	flex: 1; /* É isso que empurra o footer pro final! Ele manda a div crescer o máximo que puder */
+
+	/* Opcional: Adiciona um espaçamento padrão para o conteúdo não grudar nas bordas */
+	padding: var(--spacing-xl);
+	width: 100%;
+	max-width: 1200px; /* Mantém o conteúdo centralizado e não esticado demais em telas gigantes */
+	margin: 0 auto; /* Centraliza o max-width */
+}
+
+.btn-add-transaction {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	background-color: var(--primary-color);
+	color: white;
+	border: none;
+	padding: 0.6rem 1.25rem;
+	border-radius: var(--border-radius);
+	font-size: 0.95rem;
+	font-weight: 600;
+	font-family: inherit;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	box-shadow:
+		0 4px 6px -1px rgba(17, 94, 89, 0.2),
+		0 2px 4px -1px rgba(17, 94, 89, 0.1);
+
+	/* Efeitos de Hover para dar um feedback tátil e elegante */
+	&:hover {
+		background-color: var(--primary-hover);
+		transform: translateY(-2px); /* Eleva o botão sutilmente */
+		box-shadow:
+			0 10px 15px -3px rgba(17, 94, 89, 0.3),
+			0 4px 6px -2px rgba(17, 94, 89, 0.15);
+	}
+
+	&:active {
+		transform: translateY(0); /* Afunda o botão ao clicar */
+	}
+
+	svg {
+		/* Ajuste fino do ícone */
+		margin-left: -4px;
+	}
+}

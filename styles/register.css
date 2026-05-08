@@ -1,0 +1,154 @@
+.register-container {
+	width: 100vw;
+	height: 100vh;
+	background-color: var(--bg-color, #f1f5f9);
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: var(--spacing-lg, 1.5rem);
+
+	/* overflow-y permite rolar caso o teclado do celular abra ou a tela seja muito baixa */
+	overflow-y: auto;
+
+	form {
+		background: var(--card-bg, #ffffff);
+		width: 100%;
+		max-width: 450px; /* Levemente mais largo que o login para acomodar bem os nomes lado a lado */
+		padding: var(--spacing-xl, 2rem);
+		height: fit-content;
+		margin: auto; /* Ajuda a centralizar quando há scroll */
+
+		border-radius: var(--border-radius, 12px);
+		box-shadow: var(--shadow-subtle, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+		border: 1px solid var(--border-color, #e2e8f0);
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--spacing-lg, 1.5rem);
+
+		h1 {
+			font-size: 1.5rem;
+			font-weight: 600;
+			color: var(--text-main, #1e293b);
+			text-align: center;
+			margin: 0;
+		}
+
+		.inputs-group {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			gap: var(--spacing-md, 1rem);
+
+			.name-group {
+				display: flex;
+				gap: var(--spacing-md, 1rem);
+				width: 100%;
+
+				input {
+					flex: 1; /* Faz os dois inputs dividirem 50% do espaço cada */
+				}
+			}
+
+			input {
+				width: 100%;
+				padding: 0.75rem 1rem;
+				background-color: var(--input-bg, #f8fafc);
+				border: 1px solid var(--border-color, #e2e8f0);
+				border-radius: var(--border-radius, 8px);
+				font-size: 1rem; /* Fundamental no mobile: 1rem previne o zoom automático no iOS */
+				color: var(--text-main, #1e293b);
+				transition: all 0.2s ease-in-out;
+				font-family: inherit;
+
+				&::placeholder {
+					color: var(--text-muted, #94a3b8);
+				}
+
+				&:focus {
+					outline: none;
+					border-color: var(--primary-color, #0f766e);
+					box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15); /* Glow sutil */
+				}
+			}
+		}
+
+		button {
+			width: 100%;
+			padding: 0.85rem 1rem; /* Botão ligeiramente mais alto para facilitar o clique no celular */
+			background-color: var(--primary-color, #0f766e);
+			color: white;
+			border: none;
+			border-radius: var(--border-radius, 8px);
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition:
+				background-color 0.2s ease,
+				transform 0.1s ease;
+			font-family: inherit;
+
+			&:hover {
+				background-color: var(--primary-hover, #115e59);
+			}
+
+			&:active {
+				transform: scale(0.98); /* Efeito de clique */
+			}
+		}
+
+		a {
+			font-size: 0.9rem;
+			color: var(--primary-color, #0f766e);
+			text-decoration: none;
+			font-weight: 500;
+			transition: color 0.2s ease;
+			margin-top: calc(var(--spacing-sm, 0.5rem) * -1);
+
+			&:hover {
+				color: var(--primary-hover, #115e59);
+				text-decoration: underline;
+			}
+		}
+
+		.error-message {
+			width: 100%;
+			padding: 0.75rem;
+			background-color: var(--error-bg, #fef2f2);
+			color: var(--error-text, #ef4444);
+			border: 1px solid var(--error-border, #fca5a5);
+			border-radius: var(--border-radius, 8px);
+			font-size: 0.875rem;
+			text-align: center;
+			font-weight: 500;
+			animation: slideDownFade 0.3s ease-out forwards;
+		}
+
+		@keyframes slideDownFade {
+			from {
+				opacity: 0;
+				transform: translateY(-10px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		/* ========================================================
+           MEDIA QUERIES (Ajustes para Celular)
+        ======================================================== */
+		@media (max-width: 480px) {
+			padding: var(--spacing-lg, 1.5rem);
+
+			.inputs-group {
+				.name-group {
+					flex-direction: column; /* Empilha Primeiro Nome e Sobrenome */
+					gap: var(--spacing-md, 1rem);
+				}
+			}
+		}
+	}
+}

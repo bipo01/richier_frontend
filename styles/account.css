@@ -1,0 +1,254 @@
+.account-page-container {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-xl, 2rem);
+	width: 100%;
+	max-width: 680px; /* Mantém o formulário com um tamanho elegante e fácil de ler */
+	margin: 0 auto; /* Centraliza a página na tela */
+	padding: var(--spacing-md, 1rem); /* Respiro nas bordas laterais para mobile */
+
+	/* Cabeçalho da página */
+	.account-header {
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+
+		h1 {
+			font-size: 1.5rem;
+			color: var(--text-main, #1e293b);
+			font-weight: 700;
+			letter-spacing: -0.5px;
+			margin: 0;
+		}
+
+		p {
+			color: var(--text-muted, #64748b);
+			font-size: 0.95rem;
+			margin: 0;
+		}
+	}
+
+	/* Card principal com o formulário */
+	.account-content {
+		background-color: var(--card-bg, #ffffff);
+		border-radius: var(--border-radius, 12px);
+		border: 1px solid var(--border-color, #e2e8f0);
+		box-shadow: var(--shadow-subtle, 0 1px 2px 0 rgba(0, 0, 0, 0.05));
+		padding: var(--spacing-xl, 1.5rem);
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-lg, 1.2rem);
+	}
+
+	/* Agrupamentos de campos (Perfil e Segurança) */
+	.account-section {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-md, 1rem);
+
+		h2 {
+			font-size: 1.1rem;
+			color: var(--text-main, #1e293b);
+			font-weight: 600;
+			margin: 0 0 var(--spacing-sm, 0.5rem) 0;
+		}
+	}
+
+	.full-name-group {
+		display: flex;
+		gap: var(--spacing-md, 1rem); /* Aumentado um pouco para respirar melhor */
+
+		.form-group {
+			width: 100%;
+		}
+
+		/* No mobile, coloca um campo embaixo do outro para evitar ficarem espremidos */
+		@media (max-width: 480px) {
+			flex-direction: column;
+			gap: 0;
+		}
+	}
+
+	/* Estilização individual dos inputs e labels */
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+		margin-bottom: 0.8rem; /* Espaçamento inferior extra no mobile */
+
+		label {
+			font-size: 0.9rem;
+			font-weight: 500;
+			color: var(--text-main, #1e293b);
+		}
+
+		input {
+			padding: 0.75rem 1rem; /* Área de toque maior para facilitar no mobile */
+			border: 1px solid var(--border-color, #e2e8f0);
+			border-radius: var(--border-radius, 8px);
+			background-color: var(--input-bg, #f8fafc);
+			color: var(--text-main, #1e293b);
+			font-family: inherit;
+			font-size: 1rem; /* Essencial: 1rem previne o zoom automático no iOS ao focar no campo */
+			transition:
+				border-color 0.2s ease,
+				box-shadow 0.2s ease;
+
+			&:focus {
+				outline: none;
+				border-color: var(--primary-color, #0f766e);
+				box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1); /* Brilho sutil */
+			}
+
+			&::placeholder {
+				color: #94a3b8;
+			}
+		}
+	}
+
+	/* Linha divisória sutil entre seções */
+	.divider {
+		border: none;
+		border-top: 1px solid var(--border-color, #e2e8f0);
+		margin: var(--spacing-sm, 0.5rem) 0;
+	}
+
+	/* Área dos botões de ação */
+	.account-actions {
+		display: flex;
+		justify-content: flex-end;
+		margin-top: var(--spacing-sm, 0.5rem);
+		gap: var(--spacing-md, 1rem);
+
+		button {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 0.75rem 1.5rem; /* Ajustado para área de toque confortável */
+			border-radius: var(--border-radius, 8px);
+			font-size: 0.95rem;
+			font-weight: 600;
+			font-family: inherit;
+			cursor: pointer;
+			transition: all 0.2s ease;
+		}
+
+		.btn-redefine {
+			background-color: transparent;
+			border: 1px solid var(--border-color, #e2e8f0);
+			color: var(--text-main, #1e293b);
+
+			&:hover {
+				background-color: var(--input-bg, #f8fafc);
+			}
+		}
+
+		.btn-save {
+			background-color: var(--primary-color, #0f766e);
+			color: white;
+			border: none;
+			box-shadow: 0 4px 6px -1px rgba(15, 118, 110, 0.2);
+
+			&:hover {
+				background-color: var(--primary-hover, #115e59);
+				transform: translateY(-2px);
+				box-shadow: 0 10px 15px -3px rgba(15, 118, 110, 0.3);
+			}
+
+			&:active {
+				transform: translateY(0);
+			}
+		}
+	}
+
+	/* Área destacada para exclusão de conta */
+	.danger-zone {
+		border: 1px solid var(--error-border, #fca5a5);
+		border-radius: var(--border-radius, 12px);
+		padding: var(--spacing-lg, 1.5rem);
+		background-color: rgba(254, 242, 242, 0.5); /* Fundo levemente avermelhado */
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: var(--spacing-lg, 1.5rem);
+		flex-wrap: wrap;
+
+		.danger-zone-text {
+			flex: 1;
+			min-width: 250px;
+
+			h2 {
+				font-size: 1.05rem;
+				color: var(--error-text, #ef4444);
+				font-weight: 600;
+				margin: 0 0 0.3rem 0;
+			}
+
+			p {
+				color: var(--text-muted, #64748b);
+				font-size: 0.9rem;
+				line-height: 1.5;
+				margin: 0;
+			}
+		}
+
+		.btn-delete-account {
+			background-color: transparent;
+			color: var(--error-text, #ef4444);
+			border: 1px solid var(--error-text, #ef4444);
+			padding: 0.75rem 1.25rem; /* Touch target melhorado */
+			border-radius: var(--border-radius, 8px);
+			font-size: 0.95rem;
+			font-weight: 600;
+			font-family: inherit;
+			cursor: pointer;
+			transition: all 0.2s ease;
+			white-space: nowrap;
+
+			&:hover {
+				background-color: var(--error-text, #ef4444);
+				color: white;
+			}
+
+			&:active {
+				transform: scale(0.98);
+			}
+		}
+	}
+
+	/* ========================================================
+       MEDIA QUERIES (Responsividade Mobile)
+    ======================================================== */
+	@media (max-width: 576px) {
+		.account-content {
+			padding: var(--spacing-md, 1rem); /* Reduz margens internas em telas pequenas */
+			gap: 1rem;
+		}
+
+		/* Botões Redefinir / Salvar empilhados no mobile */
+		.account-actions {
+			flex-direction: column-reverse; /* "Redefinir" fica embaixo do "Salvar" */
+			width: 100%;
+			gap: 0.75rem;
+
+			button {
+				width: 100%; /* Ocupam toda a largura da tela */
+				padding: 0.85rem; /* Botões mais altos para toque fácil */
+			}
+		}
+
+		/* Danger Zone empilhada */
+		.danger-zone {
+			flex-direction: column;
+			align-items: flex-start;
+			padding: var(--spacing-md, 1rem);
+			gap: 1rem;
+
+			.btn-delete-account {
+				width: 100%;
+				text-align: center;
+				padding: 0.85rem; /* Botão mais alto para toque fácil */
+			}
+		}
+	}
+}

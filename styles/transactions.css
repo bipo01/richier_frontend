@@ -1,0 +1,522 @@
+.transactions-container {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-xl);
+	width: 100%;
+
+	/* Utilitários de texto padrão */
+	.text-main {
+		color: var(--text-main);
+	}
+	.text-muted {
+		color: var(--text-muted);
+		font-size: 0.9rem;
+	}
+	.font-medium {
+		font-weight: 500;
+	}
+	.tabular-nums {
+		font-variant-numeric: tabular-nums;
+	}
+	.text-income {
+		color: var(--primary-color) !important;
+	}
+	.text-expense {
+		color: var(--error-text) !important;
+	}
+	.align-right {
+		text-align: right;
+	}
+	.align-center {
+		text-align: center;
+	}
+
+	/* Cabeçalho da Página */
+	.page-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: var(--spacing-md);
+
+		h1 {
+			font-size: 1.5rem;
+			color: var(--text-main);
+			font-weight: 700;
+			letter-spacing: -0.5px;
+			margin-bottom: 0.2rem;
+		}
+
+		p {
+			color: var(--text-muted);
+			font-size: 0.95rem;
+		}
+
+		.btn-add-primary {
+			background-color: var(--primary-color);
+			color: white;
+			border: none;
+			padding: 0.6rem 1.25rem;
+			border-radius: var(--border-radius);
+			font-size: 0.95rem;
+			font-weight: 600;
+			font-family: inherit;
+			cursor: pointer;
+			transition: all 0.2s ease;
+			box-shadow: 0 4px 6px -1px rgba(17, 94, 89, 0.2);
+
+			&:hover {
+				background-color: var(--primary-hover);
+				transform: translateY(-2px);
+				box-shadow: 0 10px 15px -3px rgba(17, 94, 89, 0.3);
+			}
+		}
+	}
+
+	/* Card Principal que engloba tudo */
+	.transactions-card {
+		background-color: var(--card-bg);
+		border-radius: var(--border-radius);
+		border: 1px solid var(--border-color);
+		box-shadow: var(--shadow-subtle);
+		display: flex;
+		flex-direction: column;
+		overflow: hidden; /* Garante que a tabela não vaze bordas arredondadas */
+	}
+
+	/* Toolbar: Pesquisa e Filtros */
+	.toolbar {
+		order: 1; /* Define como o 1º elemento do card */
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: var(--spacing-lg);
+		padding: var(--spacing-lg);
+		border-bottom: 1px solid var(--border-color);
+		background-color: #fafbfc; /* Tom ligeiramente distinto do fundo branco puro */
+
+		.search-box {
+			position: relative;
+			flex: 1;
+			min-width: 250px;
+			max-width: 400px;
+
+			svg {
+				position: absolute;
+				left: 12px;
+				top: 50%;
+				transform: translateY(-50%);
+				color: var(--text-muted);
+			}
+
+			input {
+				width: 100%;
+				padding: 0.6rem 1rem 0.6rem 2.2rem; /* Espaço pra lupa */
+				border: 1px solid var(--border-color);
+				border-radius: var(--border-radius);
+				background-color: var(--card-bg);
+				font-family: inherit;
+				font-size: 0.95rem;
+				transition: border-color 0.2s ease;
+
+				&:focus {
+					outline: none;
+					border-color: var(--primary-color);
+					box-shadow: 0 0 0 3px rgba(17, 94, 89, 0.1);
+				}
+			}
+		}
+
+		.filters-group {
+			display: flex;
+			align-items: center;
+			gap: var(--spacing-md);
+			flex-wrap: wrap;
+
+			select,
+			input[type="date"] {
+				padding: 0.6rem 0.8rem;
+				border: 1px solid var(--border-color);
+				border-radius: var(--border-radius);
+				background-color: var(--card-bg);
+				color: var(--text-main);
+				font-family: inherit;
+				font-size: 0.9rem;
+				cursor: pointer;
+				outline: none;
+
+				&:focus {
+					border-color: var(--primary-color);
+				}
+			}
+		}
+	}
+
+	/* Rodapé / Paginação (Agora no topo!) */
+	.pagination-footer {
+		order: 2; /* Move visualmente para baixo da Toolbar e cima da Tabela */
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: var(--spacing-lg);
+		border-top: none; /* Remove a borda antiga de cima */
+		border-bottom: 1px solid var(--border-color); /* Adiciona borda embaixo para separar da tabela */
+		background-color: var(--card-bg);
+		flex-wrap: wrap;
+		gap: var(--spacing-md);
+
+		.pagination-info {
+			font-size: 0.9rem;
+			color: var(--text-muted);
+			strong {
+				color: var(--text-main);
+				font-weight: 600;
+			}
+		}
+
+		.pagination-controls {
+			display: flex;
+			gap: 0.25rem;
+
+			button {
+				background-color: var(--card-bg);
+				border: 1px solid var(--border-color);
+				color: var(--text-main);
+				padding: 0.4rem 0.8rem;
+				border-radius: 4px;
+				font-size: 0.9rem;
+				cursor: pointer;
+				transition: all 0.2s ease;
+
+				&.active {
+					background-color: var(--primary-color);
+					color: white;
+					border-color: var(--primary-color);
+				}
+
+				&:disabled {
+					opacity: 0.5;
+					cursor: not-allowed;
+				}
+			}
+
+			.btn-page:hover {
+				background-color: var(--primary-hover);
+				color: white;
+			}
+
+			span {
+				padding: 0.4rem 0.2rem;
+				color: var(--text-muted);
+			}
+		}
+	}
+
+	/* Tabela Responsiva */
+	.table-responsive {
+		order: 3; /* Define a tabela como o último elemento visual do card */
+		width: 100%;
+		overflow-x: auto;
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			text-align: left;
+
+			th {
+				padding: var(--spacing-md) var(--spacing-lg);
+				font-size: 0.85rem;
+				font-weight: 600;
+				color: var(--text-muted);
+				text-transform: uppercase;
+				letter-spacing: 0.5px;
+				background-color: var(--card-bg);
+				border-bottom: 2px solid var(--border-color);
+			}
+
+			td {
+				padding: var(--spacing-md) var(--spacing-lg);
+				border-bottom: 1px solid var(--border-color);
+				vertical-align: middle;
+				font-size: 0.95rem;
+			}
+
+			/* Hover elegante na linha */
+			tbody tr {
+				transition: background-color 0.2s ease;
+				&:hover {
+					background-color: #f8fafc;
+
+					/* Mostra as ações mais nitidamente quando a linha está em foco */
+					.actions-cell .btn-icon {
+						opacity: 1;
+					}
+				}
+			}
+
+			/* Estilos da Linha de Total */
+			tfoot {
+				background-color: #f8fafc; /* Fundo levemente destacado */
+				border-top: 2px solid var(--border-color); /* Linha divisória mais grossa para separar da listagem */
+
+				.row-total {
+					td {
+						padding: var(--spacing-md) var(--spacing-lg);
+						vertical-align: middle;
+					}
+
+					.text-total-label {
+						font-weight: 600;
+						color: var(--text-muted);
+						text-transform: uppercase;
+						font-size: 0.85rem;
+						letter-spacing: 0.5px;
+					}
+
+					.text-total-value {
+						font-weight: 700;
+						color: var(--text-main);
+						font-size: 1.05rem;
+					}
+				}
+			}
+
+			/* Tag de Categoria */
+			.tag-category {
+				display: inline-block;
+				padding: 0.25rem 0.6rem;
+				background-color: var(--input-bg);
+				border: 1px solid var(--border-color);
+				border-radius: 12px;
+				font-size: 0.8rem;
+				color: var(--text-muted);
+				font-weight: 500;
+			}
+
+			/* Célula de Ações */
+			.actions-cell {
+				display: flex;
+				justify-content: center;
+				gap: 0.5rem;
+
+				.btn-icon {
+					background: none;
+					border: none;
+					padding: 0.4rem;
+					border-radius: 4px;
+					color: var(--text-muted);
+					cursor: pointer;
+					opacity: 0.5; /* Opacidade reduzida por padrão */
+					transition: all 0.2s ease;
+
+					&:hover {
+						opacity: 1;
+					}
+					&.edit:hover {
+						background-color: rgba(17, 94, 89, 0.1);
+						color: var(--primary-color);
+					}
+					&.delete:hover {
+						background-color: var(--error-bg);
+						color: var(--error-text);
+					}
+				}
+			}
+		}
+	}
+
+	/* ========================================================
+       MEDIA QUERIES (Ajuste Definitivo para Mobile)
+    ======================================================== */
+
+	@media (max-width: 768px) {
+		/* 1. Ajuste do Cabeçalho e Botão */
+		.page-header {
+			flex-direction: column;
+			align-items: flex-start;
+
+			.btn-add-transaction {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+			}
+		}
+
+		/* 2. Ajuste dos Filtros */
+		.toolbar {
+			flex-direction: column;
+			align-items: stretch;
+			padding: var(--spacing-md);
+
+			.search-box {
+				max-width: 100%;
+			}
+			.filters-group {
+				width: 100%;
+				justify-content: space-between;
+				gap: var(--spacing-sm);
+			}
+			.filters-group select,
+			.filters-group input {
+				flex: 1;
+			}
+		}
+
+		/* 3. Empilhar os Cards de Saldo/Receita/Despesa */
+		.info-cards {
+			display: flex !important;
+			flex-direction: column;
+			gap: 0.3rem;
+		}
+
+		/* 4. A Mágica: Transformar a Tabela em Cards */
+		.table-responsive {
+			background-color: transparent;
+			border: none;
+			overflow: visible; /* Remove barras de rolagem estranhas */
+
+			table,
+			thead,
+			tbody,
+			tfoot,
+			tr,
+			th,
+			td {
+				display: block;
+				width: 100%;
+			}
+
+			/* Esconde o cabeçalho original da tabela */
+			thead {
+				display: none;
+			}
+
+			/* Transforma a linha em um Card minimalista */
+			tbody tr {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				justify-content: space-between;
+				padding: var(--spacing-md);
+				margin-bottom: 0.2rem;
+				background-color: var(--card-bg);
+				border: 1px solid var(--border-color);
+				border-radius: var(--border-radius);
+				box-shadow: var(--shadow-subtle);
+			}
+
+			/* Remove os hovers agressivos no touch */
+			tbody tr:hover {
+				background-color: var(--card-bg);
+			}
+
+			/* Posicionamento das células dentro do "Card" */
+
+			/* Descrição: Ocupa a linha toda no topo */
+			tbody td:nth-child(1) {
+				width: 100%;
+				font-size: 1.1rem;
+				font-weight: 600;
+				border: none;
+				padding: 0 0 var(--spacing-sm) 0;
+			}
+
+			/* Categoria: Fica na esquerda */
+			tbody td:nth-child(2) {
+				width: auto;
+				border: none;
+				padding: 0;
+			}
+
+			/* Data: Fica na direita, alinhada com a categoria */
+			tbody td:nth-child(3) {
+				width: auto;
+				text-align: right;
+				font-size: 0.85rem;
+				border: none;
+				padding: 0;
+			}
+
+			/* Valor: Ocupa a linha toda, grande destaque */
+			tbody td:nth-child(4) {
+				width: 100%;
+				text-align: left;
+				font-size: 1.3rem;
+				font-weight: 700;
+				margin-top: var(--spacing-sm);
+				padding: 0;
+				border: none;
+			}
+
+			/* Ações: Rodapé do card */
+			tbody td.actions-cell {
+				width: 100%;
+				display: flex;
+				justify-content: flex-end;
+				gap: var(--spacing-md);
+				margin-top: var(--spacing-sm);
+				padding: var(--spacing-sm) 0 0 0;
+				border-top: 1px solid var(--border-color);
+				border-bottom: none;
+			}
+
+			/* Força os botões de ação a aparecerem sempre no celular */
+			.actions-cell .btn-icon {
+				opacity: 1;
+				background-color: var(--input-bg);
+				padding: 0.5rem;
+			}
+
+			/* 5. Ajuste do Totalizador (Footer da Tabela) */
+			tfoot tr {
+				display: flex;
+				align-items: flex-start;
+				padding: var(--spacing-lg);
+				border-radius: var(--border-radius);
+				margin-top: var(--spacing-md);
+				border: none;
+			}
+
+			tfoot td {
+				padding: 0;
+				border: none;
+				text-align: left;
+			}
+
+			tfoot td.text-total-label {
+				font-size: 0.9rem;
+			}
+
+			tfoot td.text-total-value {
+				font-size: 1.75rem;
+				margin-top: 0.25rem;
+			}
+
+			/* Esconde a última TD vazia que sobrou do footer */
+			tfoot td:last-child {
+				display: none;
+			}
+		}
+
+		/* 6. Paginação */
+		.pagination-footer {
+			flex-direction: column;
+			gap: var(--spacing-md);
+			padding: var(--spacing-md);
+			text-align: center;
+
+			.pagination-controls {
+				flex-wrap: wrap;
+				justify-content: center;
+				width: 100%;
+
+				button {
+					flex: 1;
+					min-width: 40px;
+					max-width: 60px;
+				}
+			}
+		}
+	}
+}

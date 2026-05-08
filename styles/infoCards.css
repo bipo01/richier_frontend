@@ -1,0 +1,37 @@
+.info-cards {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: var(--spacing-lg);
+
+	.card {
+		background-color: var(--card-bg);
+		padding: var(--spacing-lg);
+		border-radius: var(--border-radius);
+		border: 1px solid var(--border-color);
+		box-shadow: var(--shadow-subtle);
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-sm);
+
+		h3 {
+			font-size: 0.875rem;
+			font-weight: 500;
+			color: var(--text-muted);
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+		}
+
+		.amount {
+			font-size: 1.75rem;
+			font-weight: 700;
+			color: var(--text-main);
+		}
+
+		&.income .amount {
+			color: var(--primary-color);
+		}
+		&.expenses .amount {
+			color: var(--error-text);
+		}
+	}
+}

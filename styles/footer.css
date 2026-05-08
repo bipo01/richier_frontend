@@ -1,0 +1,96 @@
+.footer-app-container {
+	width: 100%;
+	background-color: var(--card-bg);
+	border-top: 1px solid var(--border-color);
+	padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-md);
+	margin-top: auto; /* Empurra o footer pro final da tela */
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.footer-content {
+		width: 100%;
+		max-width: 1200px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: var(--spacing-xl);
+		padding-bottom: var(--spacing-lg);
+		border-bottom: 1px solid var(--border-color); /* Linha sutil separando o copyright */
+
+		.footer-brand {
+			display: flex;
+			flex-direction: column;
+			gap: var(--spacing-sm);
+
+			.app-logo {
+				font-size: 1.25rem;
+				font-weight: 700;
+				color: var(--primary-color);
+				text-decoration: none;
+				letter-spacing: -0.5px;
+				transition: opacity 0.2s ease;
+
+				&:hover {
+					opacity: 0.8;
+				}
+			}
+
+			p {
+				font-size: 0.875rem;
+				color: var(--text-muted);
+			}
+		}
+
+		.footer-links {
+			display: flex;
+			gap: var(--spacing-lg);
+
+			a {
+				font-size: 0.9rem;
+				font-weight: 500;
+				color: var(--text-main);
+				text-decoration: none;
+				transition: color 0.2s ease;
+
+				&:hover {
+					color: var(--primary-color);
+				}
+			}
+		}
+	}
+
+	.footer-bottom {
+		width: 100%;
+		max-width: 1200px;
+		text-align: center;
+		padding-top: var(--spacing-md);
+
+		p {
+			font-size: 0.8rem;
+			color: var(--text-muted);
+		}
+	}
+
+	/* Responsividade para manter o design bom no celular */
+	@media (max-width: 768px) {
+		padding: var(--spacing-lg) var(--spacing-md) var(--spacing-md);
+
+		.footer-content {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: var(--spacing-md);
+
+			.footer-links {
+				flex-wrap: wrap;
+				gap: var(--spacing-md);
+				margin-top: var(--spacing-sm);
+			}
+		}
+
+		.footer-bottom {
+			text-align: left;
+		}
+	}
+}

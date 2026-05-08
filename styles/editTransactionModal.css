@@ -1,0 +1,263 @@
+.edit-transaction-modal-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000; /* Garante que fique acima de tudo */
+	padding: var(--spacing-md);
+
+	/* O fundo escuro com leve blur */
+	.modal-backdrop {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(15, 23, 42, 0.6); /* Tom azul escuro transparente */
+		backdrop-filter: blur(4px);
+	}
+
+	/* A caixa do Modal */
+	.modal-content {
+		position: relative;
+		background-color: var(--card-bg);
+		width: 100%;
+		max-width: 450px;
+		border-radius: var(--border-radius);
+		box-shadow:
+			0 20px 25px -5px rgba(0, 0, 0, 0.1),
+			0 10px 10px -5px rgba(0, 0, 0, 0.04);
+		display: flex;
+		flex-direction: column;
+
+		/* Animação suave de entrada de baixo para cima */
+		animation: modalSlideUp 0.3s ease-out forwards;
+	}
+
+	@keyframes modalSlideUp {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* Cabeçalho do Modal */
+	.modal-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: var(--spacing-lg) var(--spacing-xl);
+		border-bottom: 1px solid var(--border-color);
+
+		h2 {
+			font-size: 1.25rem;
+			font-weight: 600;
+			color: var(--text-main);
+		}
+
+		.btn-close {
+			background: none;
+			border: none;
+			font-size: 1.5rem;
+			color: var(--text-muted);
+			cursor: pointer;
+			transition: color 0.2s ease;
+			line-height: 1;
+			padding: 0.2rem;
+
+			&:hover {
+				color: var(--error-text);
+			}
+		}
+	}
+
+	/* Corpo do Formulário */
+	.modal-form {
+		display: flex;
+		flex-direction: column;
+		padding: var(--spacing-xl);
+		gap: var(--spacing-lg);
+
+		.form-group {
+			display: flex;
+			flex-direction: column;
+			gap: 0.4rem;
+
+			label {
+				font-size: 0.875rem;
+				font-weight: 500;
+				color: var(--text-main);
+			}
+
+			input[type="number"],
+			input[type="text"],
+			input[type="date"],
+			select,
+			textarea {
+				width: 100%;
+				padding: 0.6rem 0.8rem;
+				background-color: var(--input-bg);
+				border: 1px solid var(--border-color);
+				border-radius: var(--border-radius);
+				color: var(--text-main);
+				font-family: inherit;
+				font-size: 0.95rem;
+				transition: border-color 0.2s ease;
+
+				&:focus {
+					outline: none;
+					border-color: var(--primary-color);
+					box-shadow: 0 0 0 3px rgba(17, 94, 89, 0.1);
+				}
+			}
+
+			/* --------------------------------------
+               Custom Radio (Segmented Control)
+               -------------------------------------- */
+			.segmented-control {
+				display: flex;
+				background-color: var(--input-bg);
+				border-radius: var(--border-radius);
+				border: 1px solid var(--border-color);
+				overflow: hidden;
+
+				.segment {
+					flex: 1;
+					text-align: center;
+					padding: 0.6rem;
+					font-size: 0.9rem;
+					font-weight: 500;
+					color: var(--text-muted);
+					cursor: pointer;
+					transition: all 0.2s ease;
+					position: relative;
+
+					/* Esconde a bolinha do rádio real */
+					input[type="radio"] {
+						position: absolute;
+						opacity: 0;
+						width: 0;
+						height: 0;
+					}
+
+					/* Estilo para Despesa Selecionada */
+					&.active-out {
+						background-color: var(--error-bg);
+						color: var(--error-text);
+						font-weight: 600;
+					}
+
+					/* Estilo para Receita Selecionada */
+					&.active-in {
+						background-color: rgba(17, 94, 89, 0.1); /* Fundo verde clarinho */
+						color: var(--primary-color);
+						font-weight: 600;
+					}
+				}
+
+				/* Linha divisória entre os botões */
+				.segment:first-child {
+					border-right: 1px solid var(--border-color);
+				}
+			}
+
+			/* --------------------------------------
+               Categoria Header (Label + Checkbox)
+               -------------------------------------- */
+			.category-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+
+				.checkbox-toggle {
+					display: flex;
+					align-items: center;
+					gap: 0.4rem;
+					font-size: 0.8rem;
+					color: var(--primary-color);
+					cursor: pointer;
+					font-weight: 500;
+
+					input[type="checkbox"] {
+						cursor: pointer;
+						accent-color: var(--primary-color);
+					}
+				}
+			}
+
+			/* --------------------------------------
+               Textarea Wrapper (Contador interativo)
+               -------------------------------------- */
+			.textarea-wrapper {
+				position: relative;
+
+				textarea {
+					resize: none; /* Impede o usuário de quebrar o layout */
+					padding-bottom: 1.5rem; /* Dá espaço para o contador na parte inferior */
+				}
+
+				.char-count {
+					position: absolute;
+					bottom: 0.5rem;
+					right: 0.8rem;
+					font-size: 0.75rem;
+					color: var(--text-muted);
+					transition: color 0.2s ease;
+					pointer-events: none;
+
+					&.limit-reached {
+						color: var(--error-text);
+						font-weight: 600;
+					}
+				}
+			}
+		}
+	}
+
+	/* Rodapé do Modal com Botões */
+	.modal-actions {
+		display: flex;
+		justify-content: flex-end;
+		gap: var(--spacing-md);
+		margin-top: var(--spacing-sm);
+
+		button {
+			padding: 0.6rem 1.2rem;
+			border-radius: var(--border-radius);
+			font-size: 0.95rem;
+			font-weight: 600;
+			font-family: inherit;
+			cursor: pointer;
+			transition: all 0.2s ease;
+		}
+
+		.btn-cancel {
+			background-color: transparent;
+			border: 1px solid var(--border-color);
+			color: var(--text-main);
+
+			&:hover {
+				background-color: var(--input-bg);
+			}
+		}
+
+		.btn-submit {
+			background-color: var(--primary-color);
+			color: white;
+			border: none;
+			box-shadow: 0 2px 4px rgba(17, 94, 89, 0.2);
+
+			&:hover {
+				background-color: var(--primary-hover);
+			}
+		}
+	}
+}
