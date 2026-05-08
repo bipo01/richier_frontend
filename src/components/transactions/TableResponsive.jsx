@@ -38,7 +38,7 @@ function TableResponsive() {
 				</thead>
 				<tbody>
 					{filteredTransactions.map((transaction) => {
-						const date = new Date(transaction.date).toLocaleDateString("pt-BR", { day: "2-digit", month: "long", year: "numeric" });
+						const date = new Date(transaction.date).toLocaleDateString("pt-BR", { day: "2-digit", month: "long", year: "numeric", timeZone: "UTC" });
 
 						return <TransactionItem key={transaction.id} transaction={transaction} date={date} />;
 					})}
